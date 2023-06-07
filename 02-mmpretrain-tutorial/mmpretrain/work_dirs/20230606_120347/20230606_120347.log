@@ -1,0 +1,454 @@
+2023/06/06 12:03:48 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.9.13 (main, Aug 25 2022, 23:26:10) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 1197453800
+    GPU 0: NVIDIA A16
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.3, V11.3.109
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    PyTorch: 1.12.1+cu113
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.6.0 (Git Hash 52b5f107dd9cf10910aaa19cb47f3abf9b349815)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.3.2  (built against CUDA 11.5)
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.3.2, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -fabi-version=11 -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.12.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.13.1+cu113
+    OpenCV: 4.6.0
+    MMEngine: 0.7.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: None
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2023/06/06 12:03:49 - mmengine - INFO - Config:
+model = dict(
+    type='ImageClassifier',
+    backbone=dict(
+        type='ResNet',
+        depth=18,
+        num_stages=4,
+        out_indices=(3, ),
+        style='pytorch'),
+    neck=dict(type='GlobalAveragePooling'),
+    head=dict(
+        type='LinearClsHead',
+        num_classes=2,
+        in_channels=512,
+        loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
+        topk=(1, 5)),
+    init_cfg=dict(
+        type='Pretrained',
+        checkpoint=
+        'https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth'
+    ))
+dataset_type = 'CustomDataset'
+data_preprocessor = dict(
+    num_classes=1000,
+    mean=[123.675, 116.28, 103.53],
+    std=[58.395, 57.12, 57.375],
+    to_rgb=True)
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='RandomResizedCrop', scale=224),
+    dict(type='RandomFlip', prob=0.5, direction='horizontal'),
+    dict(type='PackInputs')
+]
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='ResizeEdge', scale=256, edge='short'),
+    dict(type='CenterCrop', crop_size=224),
+    dict(type='PackInputs')
+]
+train_dataloader = dict(
+    pin_memory=True,
+    persistent_workers=True,
+    collate_fn=dict(type='default_collate'),
+    batch_size=32,
+    num_workers=5,
+    dataset=dict(
+        type='CustomDataset',
+        data_root='data/cats_dogs_dataset/training_set',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='RandomResizedCrop', scale=224),
+            dict(type='RandomFlip', prob=0.5, direction='horizontal'),
+            dict(type='PackInputs')
+        ]),
+    sampler=dict(type='DefaultSampler', shuffle=True))
+val_dataloader = dict(
+    pin_memory=True,
+    persistent_workers=True,
+    collate_fn=dict(type='default_collate'),
+    batch_size=32,
+    num_workers=5,
+    dataset=dict(
+        type='CustomDataset',
+        data_root='data/cats_dogs_dataset/val_set',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='ResizeEdge', scale=256, edge='short'),
+            dict(type='CenterCrop', crop_size=224),
+            dict(type='PackInputs')
+        ]),
+    sampler=dict(type='DefaultSampler', shuffle=False))
+val_evaluator = dict(type='Accuracy', topk=1)
+test_dataloader = dict(
+    pin_memory=True,
+    persistent_workers=True,
+    collate_fn=dict(type='default_collate'),
+    batch_size=32,
+    num_workers=5,
+    dataset=dict(
+        type='CustomDataset',
+        data_root='data/cats_dogs_dataset/test_set',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='ResizeEdge', scale=256, edge='short'),
+            dict(type='CenterCrop', crop_size=224),
+            dict(type='PackInputs')
+        ]),
+    sampler=dict(type='DefaultSampler', shuffle=False))
+test_evaluator = dict(type='Accuracy', topk=1)
+optim_wrapper = dict(
+    optimizer=dict(type='SGD', lr=0.1, momentum=0.9, weight_decay=0.0001))
+param_scheduler = dict(
+    type='MultiStepLR', by_epoch=True, milestones=[30, 60, 90], gamma=0.1)
+train_cfg = dict(by_epoch=True, max_epochs=5, val_interval=1)
+val_cfg = dict()
+test_cfg = dict()
+default_scope = 'mmpretrain'
+default_hooks = dict(
+    timer=dict(type='IterTimerHook'),
+    logger=dict(type='LoggerHook', interval=100),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    checkpoint=dict(type='CheckpointHook', interval=1),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    visualization=dict(type='VisualizationHook', enable=False))
+env_cfg = dict(
+    cudnn_benchmark=False,
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0),
+    dist_cfg=dict(backend='nccl'))
+vis_backends = [dict(type='LocalVisBackend')]
+visualizer = dict(
+    type='UniversalVisualizer', vis_backends=[dict(type='LocalVisBackend')])
+log_level = 'INFO'
+load_from = None
+resume = False
+randomness = dict(seed=None, deterministic=False)
+launcher = 'none'
+work_dir = 'work_dirs'
+
+2023/06/06 12:03:52 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2023/06/06 12:03:53 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train:
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2023/06/06 12:03:55 - mmengine - INFO - load model from: https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth
+2023/06/06 12:03:55 - mmengine - INFO - Loads checkpoint by http backend from path: https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth
+2023/06/06 12:03:55 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+size mismatch for head.fc.weight: copying a param with shape torch.Size([1000, 512]) from checkpoint, the shape in current model is torch.Size([2, 512]).
+size mismatch for head.fc.bias: copying a param with shape torch.Size([1000]) from checkpoint, the shape in current model is torch.Size([2]).
+Name of parameter - Initialization information
+
+backbone.conv1.weight - torch.Size([64, 3, 7, 7]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.0.conv1.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.0.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.0.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.0.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.0.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.0.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.1.conv1.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.1.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.1.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.1.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.1.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer1.1.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.conv1.weight - torch.Size([128, 64, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.bn1.weight - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.bn1.bias - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.conv2.weight - torch.Size([128, 128, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.bn2.weight - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.bn2.bias - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.downsample.0.weight - torch.Size([128, 64, 1, 1]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.downsample.1.weight - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.0.downsample.1.bias - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.1.conv1.weight - torch.Size([128, 128, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.1.bn1.weight - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.1.bn1.bias - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.1.conv2.weight - torch.Size([128, 128, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.1.bn2.weight - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer2.1.bn2.bias - torch.Size([128]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.conv1.weight - torch.Size([256, 128, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.bn1.weight - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.bn1.bias - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.conv2.weight - torch.Size([256, 256, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.bn2.weight - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.bn2.bias - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.downsample.0.weight - torch.Size([256, 128, 1, 1]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.downsample.1.weight - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.0.downsample.1.bias - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.1.conv1.weight - torch.Size([256, 256, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.1.bn1.weight - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.1.bn1.bias - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.1.conv2.weight - torch.Size([256, 256, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.1.bn2.weight - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer3.1.bn2.bias - torch.Size([256]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.conv1.weight - torch.Size([512, 256, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.bn1.weight - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.bn1.bias - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.conv2.weight - torch.Size([512, 512, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.bn2.weight - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.bn2.bias - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.downsample.0.weight - torch.Size([512, 256, 1, 1]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.downsample.1.weight - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.0.downsample.1.bias - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.1.conv1.weight - torch.Size([512, 512, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.1.bn1.weight - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.1.bn1.bias - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.1.conv2.weight - torch.Size([512, 512, 3, 3]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.1.bn2.weight - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+backbone.layer4.1.bn2.bias - torch.Size([512]): 
+PretrainedInit: load from https://download.openmmlab.com/mmclassification/v0/resnet/resnet18_8xb32_in1k_20210831-fbbb1da6.pth 
+
+head.fc.weight - torch.Size([2, 512]): 
+NormalInit: mean=0, std=0.01, bias=0 
+
+head.fc.bias - torch.Size([2]): 
+NormalInit: mean=0, std=0.01, bias=0 
+2023/06/06 12:03:55 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2023/06/06 12:03:55 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2023/06/06 12:03:55 - mmengine - INFO - Checkpoints will be saved to /mnt/openmmlab-Camp/02-mmpretrain-tutorial/mmpretrain/work_dirs.
+2023/06/06 12:04:12 - mmengine - INFO - Epoch(train) [1][100/201]  lr: 1.0000e-01  eta: 0:02:35  time: 0.1251  data_time: 0.0005  memory: 838  loss: 1.6349
+2023/06/06 12:04:25 - mmengine - INFO - Epoch(train) [1][200/201]  lr: 1.0000e-01  eta: 0:01:59  time: 0.1254  data_time: 0.0004  memory: 838  loss: 0.7198
+2023/06/06 12:04:25 - mmengine - INFO - Exp name: resnet18_finetune_20230606_120347
+2023/06/06 12:04:25 - mmengine - INFO - Saving checkpoint at 1 epochs
+2023/06/06 12:04:30 - mmengine - INFO - Epoch(val) [1][51/51]    accuracy/top1: 51.0931  data_time: 0.0210  time: 0.0592
+2023/06/06 12:04:43 - mmengine - INFO - Epoch(train) [2][100/201]  lr: 1.0000e-01  eta: 0:01:39  time: 0.1258  data_time: 0.0004  memory: 838  loss: 0.7347
+2023/06/06 12:04:55 - mmengine - INFO - Epoch(train) [2][200/201]  lr: 1.0000e-01  eta: 0:01:23  time: 0.1259  data_time: 0.0004  memory: 838  loss: 0.6900
+2023/06/06 12:04:56 - mmengine - INFO - Exp name: resnet18_finetune_20230606_120347
+2023/06/06 12:04:56 - mmengine - INFO - Saving checkpoint at 2 epochs
+2023/06/06 12:05:00 - mmengine - INFO - Epoch(val) [2][51/51]    accuracy/top1: 54.5909  data_time: 0.0120  time: 0.0497
+2023/06/06 12:05:13 - mmengine - INFO - Epoch(train) [3][100/201]  lr: 1.0000e-01  eta: 0:01:08  time: 0.1264  data_time: 0.0004  memory: 838  loss: 0.6974
+2023/06/06 12:05:26 - mmengine - INFO - Epoch(train) [3][200/201]  lr: 1.0000e-01  eta: 0:00:54  time: 0.1264  data_time: 0.0004  memory: 838  loss: 0.6980
+2023/06/06 12:05:26 - mmengine - INFO - Exp name: resnet18_finetune_20230606_120347
+2023/06/06 12:05:26 - mmengine - INFO - Saving checkpoint at 3 epochs
+2023/06/06 12:05:31 - mmengine - INFO - Epoch(val) [3][51/51]    accuracy/top1: 53.3417  data_time: 0.0089  time: 0.0469
+2023/06/06 12:05:44 - mmengine - INFO - Epoch(train) [4][100/201]  lr: 1.0000e-01  eta: 0:00:40  time: 0.1268  data_time: 0.0005  memory: 838  loss: 0.6860
+2023/06/06 12:05:57 - mmengine - INFO - Epoch(train) [4][200/201]  lr: 1.0000e-01  eta: 0:00:26  time: 0.1269  data_time: 0.0004  memory: 838  loss: 0.6901
+2023/06/06 12:05:57 - mmengine - INFO - Exp name: resnet18_finetune_20230606_120347
+2023/06/06 12:05:57 - mmengine - INFO - Saving checkpoint at 4 epochs
+2023/06/06 12:06:01 - mmengine - INFO - Epoch(val) [4][51/51]    accuracy/top1: 57.0269  data_time: 0.0079  time: 0.0459
+2023/06/06 12:06:14 - mmengine - INFO - Epoch(train) [5][100/201]  lr: 1.0000e-01  eta: 0:00:13  time: 0.1270  data_time: 0.0004  memory: 838  loss: 0.6884
+2023/06/06 12:06:27 - mmengine - INFO - Exp name: resnet18_finetune_20230606_120347
+2023/06/06 12:06:27 - mmengine - INFO - Epoch(train) [5][200/201]  lr: 1.0000e-01  eta: 0:00:00  time: 0.1272  data_time: 0.0004  memory: 838  loss: 0.6803
+2023/06/06 12:06:27 - mmengine - INFO - Exp name: resnet18_finetune_20230606_120347
+2023/06/06 12:06:27 - mmengine - INFO - Saving checkpoint at 5 epochs
+2023/06/06 12:06:32 - mmengine - INFO - Epoch(val) [5][51/51]    accuracy/top1: 59.5253  data_time: 0.0163  time: 0.0543

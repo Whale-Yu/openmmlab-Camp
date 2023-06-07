@@ -1,0 +1,235 @@
+2023/06/07 00:39:16 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.9.13 (main, Aug 25 2022, 23:26:10) [GCC 11.2.0]
+    CUDA available: True
+    numpy_random_seed: 2015610949
+    GPU 0: NVIDIA A16
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 11.3, V11.3.109
+    GCC: gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+    PyTorch: 1.12.1+cu113
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201402
+  - Intel(R) Math Kernel Library Version 2020.0.0 Product Build 20191122 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v2.6.0 (Git Hash 52b5f107dd9cf10910aaa19cb47f3abf9b349815)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 11.3
+  - NVCC architecture flags: -gencode;arch=compute_37,code=sm_37;-gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86
+  - CuDNN 8.3.2  (built against CUDA 11.5)
+  - Magma 2.5.2
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=11.3, CUDNN_VERSION=8.3.2, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -fabi-version=11 -Wno-deprecated -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -fopenmp -DNDEBUG -DUSE_KINETO -DUSE_FBGEMM -DUSE_QNNPACK -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DEDGE_PROFILER_USE_KINETO -O2 -fPIC -Wno-narrowing -Wall -Wextra -Werror=return-type -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-unused-local-typedefs -Wno-strict-overflow -Wno-strict-aliasing -Wno-error=deprecated-declarations -Wno-stringop-overflow -Wno-psabi -Wno-error=pedantic -Wno-error=redundant-decls -Wno-error=old-style-cast -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Werror=cast-function-type -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=1.12.1, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+    TorchVision: 0.13.1+cu113
+    OpenCV: 4.6.0
+    MMEngine: 0.7.3
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: None
+    deterministic: False
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2023/06/07 00:39:17 - mmengine - INFO - Config:
+model = dict(
+    type='ImageClassifier',
+    backbone=dict(
+        type='ResNet',
+        depth=50,
+        num_stages=4,
+        out_indices=(3, ),
+        style='pytorch'),
+    neck=dict(type='GlobalAveragePooling'),
+    head=dict(
+        type='LinearClsHead',
+        num_classes=30,
+        in_channels=2048,
+        loss=dict(type='CrossEntropyLoss', loss_weight=1.0),
+        topk=(1, 5)),
+    init_cfg=dict(
+        type='Pretrained',
+        checkpoint=
+        'https://download.openmmlab.com/mmclassification/v0/resnet/resnet50_8xb32_in1k_20210831-ea4938fc.pth'
+    ))
+dataset_type = 'CustomDataset'
+data_preprocessor = dict(
+    num_classes=1000,
+    mean=[123.675, 116.28, 103.53],
+    std=[58.395, 57.12, 57.375],
+    to_rgb=True)
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='RandomResizedCrop', scale=224),
+    dict(type='RandomFlip', prob=0.5, direction='horizontal'),
+    dict(type='PackInputs')
+]
+test_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='ResizeEdge', scale=256, edge='short'),
+    dict(type='CenterCrop', crop_size=224),
+    dict(type='PackInputs')
+]
+train_dataloader = dict(
+    batch_size=32,
+    num_workers=5,
+    dataset=dict(
+        type='CustomDataset',
+        data_root='data/fruit30_dataset/training_set',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='RandomResizedCrop', scale=224),
+            dict(type='RandomFlip', prob=0.5, direction='horizontal'),
+            dict(type='PackInputs')
+        ]),
+    sampler=dict(type='DefaultSampler', shuffle=True))
+val_dataloader = dict(
+    batch_size=32,
+    num_workers=5,
+    dataset=dict(
+        type='CustomDataset',
+        data_root='data/fruit30_dataset/val_set',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='ResizeEdge', scale=256, edge='short'),
+            dict(type='CenterCrop', crop_size=224),
+            dict(type='PackInputs')
+        ]),
+    sampler=dict(type='DefaultSampler', shuffle=False))
+val_evaluator = dict(type='Accuracy', topk=(1, 5))
+test_dataloader = dict(
+    pin_memory=True,
+    collate_fn=dict(type='default_collate'),
+    batch_size=32,
+    num_workers=5,
+    dataset=dict(
+        type='CustomDataset',
+        data_root='data/fruit30_dataset/val_set',
+        pipeline=[
+            dict(type='LoadImageFromFile'),
+            dict(type='ResizeEdge', scale=256, edge='short'),
+            dict(type='CenterCrop', crop_size=224),
+            dict(type='PackInputs')
+        ]),
+    sampler=dict(type='DefaultSampler', shuffle=False))
+test_evaluator = dict(type='Accuracy', topk=(1, 5))
+optim_wrapper = dict(
+    optimizer=dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001))
+param_scheduler = dict(
+    type='MultiStepLR', by_epoch=True, milestones=[30, 60, 90], gamma=0.1)
+train_cfg = dict(by_epoch=True, max_epochs=10, val_interval=1)
+val_cfg = dict()
+test_cfg = dict()
+default_scope = 'mmpretrain'
+default_hooks = dict(
+    timer=dict(type='IterTimerHook'),
+    logger=dict(type='LoggerHook', interval=5),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    checkpoint=dict(type='CheckpointHook', interval=5, save_best='auto'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    visualization=dict(type='VisualizationHook', enable=False))
+env_cfg = dict(
+    cudnn_benchmark=False,
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0),
+    dist_cfg=dict(backend='nccl'))
+vis_backends = [dict(type='LocalVisBackend')]
+visualizer = dict(
+    type='UniversalVisualizer', vis_backends=[dict(type='LocalVisBackend')])
+log_level = 'INFO'
+load_from = 'work_dirs/best_accuracy_top1_epoch_8.pth'
+resume = False
+randomness = dict(seed=None, deterministic=False)
+launcher = 'none'
+work_dir = './work_dirs/resnet50_fruit30'
+
+2023/06/07 00:39:20 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2023/06/07 00:39:20 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train:
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) VisualizationHook                  
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2023/06/07 00:39:24 - mmengine - INFO - Load checkpoint from work_dirs/best_accuracy_top1_epoch_8.pth
+2023/06/07 00:39:29 - mmengine - INFO - Epoch(test) [ 5/41]    eta: 0:00:41  time: 1.1401  data_time: 0.5519  memory: 427  
+2023/06/07 00:39:30 - mmengine - INFO - Epoch(test) [10/41]    eta: 0:00:19  time: 0.6316  data_time: 0.2762  memory: 427  
+2023/06/07 00:39:30 - mmengine - INFO - Epoch(test) [15/41]    eta: 0:00:12  time: 0.1226  data_time: 0.0005  memory: 427  
+2023/06/07 00:39:31 - mmengine - INFO - Epoch(test) [20/41]    eta: 0:00:07  time: 0.1225  data_time: 0.0005  memory: 427  
+2023/06/07 00:39:32 - mmengine - INFO - Epoch(test) [25/41]    eta: 0:00:05  time: 0.1228  data_time: 0.0005  memory: 427  
+2023/06/07 00:39:32 - mmengine - INFO - Epoch(test) [30/41]    eta: 0:00:03  time: 0.1226  data_time: 0.0005  memory: 427  
+2023/06/07 00:39:33 - mmengine - INFO - Epoch(test) [35/41]    eta: 0:00:01  time: 0.1227  data_time: 0.0004  memory: 427  
+2023/06/07 00:39:34 - mmengine - INFO - Epoch(test) [40/41]    eta: 0:00:00  time: 0.1227  data_time: 0.0004  memory: 427  
+2023/06/07 00:39:34 - mmengine - INFO - Epoch(test) [41/41]    accuracy/top1: 92.5983  accuracy/top5: 99.1519  data_time: 0.0677  time: 0.2455
