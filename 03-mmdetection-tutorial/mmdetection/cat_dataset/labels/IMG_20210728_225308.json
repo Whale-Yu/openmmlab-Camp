@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20210728_225308.jpg",
+  "imageData": null,
+  "imageHeight": 2448,
+  "imageWidth": 3264,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1226.6795654296875,
+          1100.9395751953125
+        ],
+        [
+          2773.7119140625,
+          1634.5062255859375
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

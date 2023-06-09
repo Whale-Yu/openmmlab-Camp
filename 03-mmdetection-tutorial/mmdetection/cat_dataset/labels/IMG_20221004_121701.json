@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20221004_121701.jpg",
+  "imageData": null,
+  "imageHeight": 3000,
+  "imageWidth": 4000,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1035.7198486328125,
+          1045.163330078125
+        ],
+        [
+          2661.564453125,
+          1978.5762939453125
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

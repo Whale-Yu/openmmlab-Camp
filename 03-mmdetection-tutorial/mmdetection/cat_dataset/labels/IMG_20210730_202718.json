@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20210730_202718.jpg",
+  "imageData": null,
+  "imageHeight": 3000,
+  "imageWidth": 4000,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1390.37255859375,
+          1086.673095703125
+        ],
+        [
+          2809.63720703125,
+          1959.41357421875
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

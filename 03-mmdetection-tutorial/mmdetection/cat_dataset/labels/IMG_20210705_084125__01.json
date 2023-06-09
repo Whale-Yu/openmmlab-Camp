@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1160.4041095890411,
+          693.4589041095892
+        ],
+        [
+          1811.0890410958905,
+          987.9794520547946
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "../images/IMG_20210705_084125__01.jpg",
+  "imageData": null,
+  "imageHeight": 1665,
+  "imageWidth": 3003
+}

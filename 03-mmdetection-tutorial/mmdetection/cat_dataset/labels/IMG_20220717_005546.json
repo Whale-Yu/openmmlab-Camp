@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20220717_005546.jpg",
+  "imageData": null,
+  "imageHeight": 3000,
+  "imageWidth": 4000,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1730.3760986328125,
+          1278.5718994140625
+        ],
+        [
+          2286.348388671875,
+          1647.1143798828125
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20211012_112749.jpg",
+  "imageData": null,
+  "imageHeight": 4000,
+  "imageWidth": 3000,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          389.5526123046875,
+          1846.5335693359375
+        ],
+        [
+          1697.607421875,
+          2725.78466796875
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

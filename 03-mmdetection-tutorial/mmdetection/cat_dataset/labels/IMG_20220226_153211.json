@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20220226_153211.jpg",
+  "imageData": null,
+  "imageHeight": 2167,
+  "imageWidth": 2705,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1268.545166015625,
+          1098.2882080078125
+        ],
+        [
+          1775.993896484375,
+          1322.3726806640625
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

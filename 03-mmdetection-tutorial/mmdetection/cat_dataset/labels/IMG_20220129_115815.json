@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20220129_115815.jpg",
+  "imageData": null,
+  "imageHeight": 2443,
+  "imageWidth": 2448,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1060.8043212890625,
+          837.5162353515625
+        ],
+        [
+          1465.110595703125,
+          1407.3028564453125
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          366.3414634146342,
+          16.829268292682965
+        ],
+        [
+          1437.0731707317075,
+          1052.6016260162603
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "../images/mmexport1633684756766.jpg",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1440
+}

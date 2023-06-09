@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20220714_172111.jpg",
+  "imageData": null,
+  "imageHeight": 3264,
+  "imageWidth": 1793,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          427.62677001953125,
+          1476.778564453125
+        ],
+        [
+          1250.0030517578125,
+          2255.886962890625
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

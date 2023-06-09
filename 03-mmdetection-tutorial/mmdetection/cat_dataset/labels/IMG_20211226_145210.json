@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20211226_145210.jpg",
+  "imageData": null,
+  "imageHeight": 3264,
+  "imageWidth": 2448,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          822.3494873046875,
+          1563.6182861328125
+        ],
+        [
+          1400.145751953125,
+          2135.460693359375
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

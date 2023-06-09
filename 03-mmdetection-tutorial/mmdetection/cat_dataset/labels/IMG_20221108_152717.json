@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          1237.5555555555557,
+          954.5555555555555
+        ],
+        [
+          2072.740740740741,
+          1467.5185185185185
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ],
+  "imagePath": "../images/IMG_20221108_152717.jpg",
+  "imageData": null,
+  "imageHeight": 2448,
+  "imageWidth": 3264
+}

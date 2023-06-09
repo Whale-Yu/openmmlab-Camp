@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20220810_001500.jpg",
+  "imageData": null,
+  "imageHeight": 4000,
+  "imageWidth": 2285,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          652.163330078125,
+          1977.6336669921875
+        ],
+        [
+          1100.03173828125,
+          2381.096435546875
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20210716_183123-02.jpeg",
+  "imageData": null,
+  "imageHeight": 2968,
+  "imageWidth": 2099,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          714.0026245117188,
+          787.207763671875
+        ],
+        [
+          1376.448486328125,
+          2463.735595703125
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}

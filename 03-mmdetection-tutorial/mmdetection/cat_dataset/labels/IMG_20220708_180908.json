@@ -1,0 +1,26 @@
+{
+  "version": "5.1.1",
+  "flags": {},
+  "imagePath": "../images/IMG_20220708_180908.jpg",
+  "imageData": null,
+  "imageHeight": 2448,
+  "imageWidth": 3264,
+  "shapes": [
+    {
+      "label": "cat",
+      "points": [
+        [
+          405.7997131347656,
+          609.557861328125
+        ],
+        [
+          2832.991943359375,
+          1637.5316162109375
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    }
+  ]
+}
