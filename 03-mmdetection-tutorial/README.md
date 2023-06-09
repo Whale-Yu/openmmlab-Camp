@@ -8,10 +8,12 @@
 ## rtmdet
 
 测试集评估指标：
+
 ![img](test.jpg)
 
 
 预测图片：
+
 ![img2](mmdetection/outputs/vis/cat.jpg)
 
 ![img3](mmdetection/outputs/vis/cat1.png)
