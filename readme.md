@@ -14,9 +14,10 @@
 
 - [点我：提交的作业及效果](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/02-mmpretrain-task)
 
-### 作业3
+### mmdetection作业：基于 RTMDet 的气球检测
 
-敬请期待......
+- [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/127)
+- [点我：提交的作业及效果](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/03-mmdetection-task)
 
 ### 作业4
 
