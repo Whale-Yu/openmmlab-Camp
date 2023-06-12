@@ -31,8 +31,7 @@
 
 - [拓展：一条龙开发——从零实现基于rtmdet的口罩检测](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/03-mask-det)
     - 从数据采集、标注、预处理开始，再编写配置文件、启动训练、评估指标、预测图片、摄像头。
-  
-
+    
 ### mmseg作业
 
 敬请期待......
