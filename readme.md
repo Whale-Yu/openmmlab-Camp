@@ -6,14 +6,14 @@
 - 更多内容见官方提提供[学员手册](https://aicarrier.feishu.cn/docx/QUxadeWW2op8UGxLfaOc1TtanQb)
 
 
-## 二、📺课程中...
-通过**理论、代码课视频**学习各个算法库
+## 二、📺课程视频-学习
+通过**理论、代码课视频学习**各个算法库
 - 课程视频：[点我-视频链接](https://www.bilibili.com/medialist/detail/ml2349654133)
 
 - 课程笔记：[点我-笔记合集](https://www.cnblogs.com/xielaoban/category/2314538.html)
 
 
-## 三、📕写作业...
+## 三、📕项目实战-作业
 通过作业对各个算法库进行**项目实战**
 ### mmpose作业：基于RTMPose的耳朵穴位关键点检测
 - [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/88)
