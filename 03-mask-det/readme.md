@@ -22,7 +22,7 @@
 ![预测图片2](mmdetection/outputs/vis/mask22.jpg)
 
 #### 预测视频：
-![预测视频](https://media.giphy.com/media/BiMGdF0Jxx504FMI82/giphy-downsized-large.gif)
+![预测视频](https://github.com/CrabBoss-lab/assets/blob/master/mask-result_1.gif)
 
 #### 预测摄像头：
 预计效果和视频差不多，由于开发均在服务器，无法预测摄像头
