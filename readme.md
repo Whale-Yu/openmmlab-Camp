@@ -1,6 +1,6 @@
 # openmmlab实战营二期
 
-## 一、课程
+## 一、📺课程
 
 ### 课程视频
 - [视频链接](https://www.bilibili.com/medialist/detail/ml2349654133)
@@ -9,7 +9,7 @@
 - [笔记合集](https://www.cnblogs.com/xielaoban/category/2314538.html)
 
 
-## 二、作业
+## 二、📕作业
 ### mmpose作业：基于RTMPose的耳朵穴位关键点检测
 - [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/88)
 - [点我：提交的作业及效果](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/01-mmpose-task)
