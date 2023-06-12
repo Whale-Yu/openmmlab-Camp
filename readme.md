@@ -18,6 +18,9 @@
 
 - [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/127)
 - [点我：提交的作业及效果](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/03-mmdetection-task)
+- [拓展：从零实现基于rtmdet的口罩检测]()
+    - 从数据采集、标注、预处理开始，再编写配置文件、启动训练、评估指标、预测图片、摄像头。
+  
 
 ### 作业4
 
