@@ -5,11 +5,9 @@
 
 ## 二、📺课程中...
 通过**理论、代码课视频**学习各个算法库
-### 课程视频
-- [视频链接](https://www.bilibili.com/medialist/detail/ml2349654133)
+### 课程视频：[点我-视频链接](https://www.bilibili.com/medialist/detail/ml2349654133)
 
-### 课程笔记
-- [笔记合集](https://www.cnblogs.com/xielaoban/category/2314538.html)
+### 课程笔记：[点我-笔记合集](https://www.cnblogs.com/xielaoban/category/2314538.html)
 
 
 ## 三、📕写作业...
