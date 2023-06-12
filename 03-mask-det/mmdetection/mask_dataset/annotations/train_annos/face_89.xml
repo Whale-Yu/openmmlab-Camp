@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>face_89.jpg</filename>
+	<path>C:\Users\yujunyu\Desktop\train\face_89.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>750</width>
+		<height>500</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>mask</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>345</xmin>
+			<ymin>120</ymin>
+			<xmax>457</xmax>
+			<ymax>278</ymax>
+		</bndbox>
+	</object>
+</annotation>

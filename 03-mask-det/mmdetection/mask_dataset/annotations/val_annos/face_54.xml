@@ -1,0 +1,26 @@
+<annotation>
+	<folder>val</folder>
+	<filename>face_54.jpg</filename>
+	<path>C:\Users\yujunyu\Desktop\val\face_54.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1422</width>
+		<height>800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>no_mask</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>550</xmin>
+			<ymin>81</ymin>
+			<xmax>960</xmax>
+			<ymax>601</ymax>
+		</bndbox>
+	</object>
+</annotation>
