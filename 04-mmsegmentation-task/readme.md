@@ -45,10 +45,10 @@ warnings.warn(_create_warning_msg(
 
   ![img](mmsegmentation/outputs/outputs.jpg)
 
-- 预测视频：
+- 预测视频(视频文件较大 请耐心等等)：
 
-![](https://github.com/CrabBoss-lab/assets/blob/master/outputs.gif)
-   
+![](https://github.com/CrabBoss-lab/assets/blob/master/videos/outputs.gif)
+
 ### Segformer
 敬请期待...
 
