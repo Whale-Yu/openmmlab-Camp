@@ -33,7 +33,7 @@
     
 ### mmsegmentation作业：基于PSPNet的西瓜瓤、西瓜皮、西瓜籽像素级语义分割
 - [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/147)
-- [点我：提交的作业及效果]()
+- [点我：提交的作业及效果](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/04-mmsegmentation-task)
 
 ### mmaigc作业
 
