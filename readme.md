@@ -35,6 +35,6 @@
 - [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/147)
 - [点我：提交的作业及效果](https://github.com/CrabBoss-lab/openmmlab-Camp/tree/master/04-mmsegmentation-task)
 
-### mmaigc作业
+### mmagic作业
 
 敬请期待......
