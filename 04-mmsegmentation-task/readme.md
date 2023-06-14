@@ -38,15 +38,15 @@ warnings.warn(_create_warning_msg(
 
 ```
 - 原图：
-- 
+
   ![img](mmsegmentation/Watermelon87_Semantic_Seg_Mask/input_test_dir/1.jpg)
   
 - 预测图片：
-- 
+
   ![img](mmsegmentation/outputs/outputs.jpg)
 
 - 预测视频
-- 
+
 ![](https://github.com/CrabBoss-lab/assets/blob/master/outputs.gif)
    
 ### Segformer
