@@ -17,7 +17,7 @@
   
 ---
 
-### PSPNet :
+### PSPNet
 
 - 验证集评估指标：
 ```bash
@@ -45,7 +45,7 @@ warnings.warn(_create_warning_msg(
 
   ![img](mmsegmentation/outputs/outputs.jpg)
 
-- 预测视频
+- 预测视频：
 
 ![](https://github.com/CrabBoss-lab/assets/blob/master/outputs.gif)
    
