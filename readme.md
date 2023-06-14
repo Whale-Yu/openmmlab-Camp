@@ -1,7 +1,7 @@
 # openmmlab实战营二期
 
 ## 一、🖊课程安排
-![img.png](https://github.com/CrabBoss-lab/assets/blob/master/img.png)
+![img.png](https://github.com/CrabBoss-lab/assets/blob/master/images/img.png)
 
 - 更多内容见官方提供的[学员手册](https://aicarrier.feishu.cn/docx/QUxadeWW2op8UGxLfaOc1TtanQb)
 
