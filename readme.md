@@ -37,4 +37,6 @@
 
 ### mmagic作业
 
-敬请期待......
+- [点我：作业介绍](https://github.com/open-mmlab/OpenMMLabCamp/issues/398)
+- [敬请期待......](https://github.com/CrabBoss-lab/openmmlab-Camp)
+
